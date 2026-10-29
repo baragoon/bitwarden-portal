@@ -30,7 +30,8 @@
     {
       "matchManagers": ["custom.regex"],
       "matchFileNames": ["README.md"],
-      "automerge": true
+      "automerge": true,
+      "ignoreTests": true
     }
   ]
 }
