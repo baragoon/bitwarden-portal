@@ -5,8 +5,7 @@ Automate backup and restore between Bitwarden and/or Vaultwarden vault.
   <img src="logo.png" alt=""/>
 </p>
 
-![Docker Image Version](https://img.shields.io/docker/v/reaper0x1/bitwarden-portal?label=Docker%20Image)
-[![Github - Official](https://img.shields.io/badge/Github-Official-2dba4e?logo=github)](https://github.com/Reaper0x1/bitwarden-portal)
+![GHCR Version](https://ghcr-badge.egpl.dev/baragoon/bitwarden-portal/latest_tag)
 
 ## Table of Contents
 - [Description](#description)
@@ -134,7 +133,7 @@ The script uses the following environment variables for backup and restore confi
 ```yaml
 services:
     bitwarden-portal:
-        image: reaper0x1/bitwarden-portal:latest
+        image: ghcr.io/baragoon/bitwarden-portal:latest
         container_name: bitwarden-portal
         env_file: .env
         volumes:
@@ -148,7 +147,7 @@ services:
 ```yaml
 services:
     bitwarden-portal:
-        image: reaper0x1/bitwarden-portal:latest
+        image: ghcr.io/baragoon/bitwarden-portal:latest
         container_name: bitwarden-portal
         environment:
             # Put your cron schedule. 
@@ -192,7 +191,7 @@ services:
 ### Build Locally
 1. Clone the repo and enter the directory:  
     ```bash
-    git clone https://github.com/Reaper0x1/bitwarden-portal.git && cd bitwarden-portal
+    git clone https://github.com/ghcr.io/baragoon/bitwarden-portal.git && cd bitwarden-portal
     ```
 2. Create a `.env` file and set the variables. (See `.env.example` as reference)
 3. Start the container:  
