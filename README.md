@@ -135,7 +135,7 @@ The script uses the following environment variables for backup and restore confi
 ```yaml
 services:
     bitwarden-portal:
-        image: ghcr.io/baragoon/bitwarden-portal:v1.0.3
+        image: ghcr.io/baragoon/bitwarden-portal:v1.0.4
         container_name: bitwarden-portal
         env_file: .env
         volumes:
@@ -151,7 +151,7 @@ services:
 ```yaml
 services:
     bitwarden-portal:
-        image: ghcr.io/baragoon/bitwarden-portal:v1.0.3
+        image: ghcr.io/baragoon/bitwarden-portal:v1.0.4
         container_name: bitwarden-portal
         environment:
             # Put your cron schedule. 
