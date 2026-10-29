@@ -199,6 +199,8 @@ services:
     ```bash
     docker compose up -d
     ```
+
+GitHub Actions builds and publishes multi-architecture images to GitHub Container Registry on pushes to `main` and on `v*` tags. Tagged images are published with version tags (and `latest` for stable releases).
     
 ## Roadmap
 - Self-signed certificate with docker-compose (not only by local build).
