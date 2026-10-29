@@ -26,6 +26,11 @@
       "matchPackageNames": ["node"],
       "versionCompatibility": "^(?<version>.+)$",
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)(?:\\.(?<patch>\\d+))?-alpine(?<build>\\d+)\\.(?<revision>\\d+)$"
+    },
+    {
+      "matchManagers": ["custom.regex"],
+      "matchFileNames": ["README.md"],
+      "automerge": true
     }
   ]
 }
