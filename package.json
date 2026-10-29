@@ -1,0 +1,12 @@
+{
+  "name": "bitwarden-portal-container",
+  "private": true,
+  "dependencies": {
+    "@bitwarden/cli": "2026.10.1"
+  },
+  "overrides": {
+    "multer": "2.5.0",
+    "node-forge": "1.4.2",
+    "tmp": "0.2.7"
+  }
+}

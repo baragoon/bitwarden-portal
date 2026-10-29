@@ -11,7 +11,10 @@ WORKDIR /app
 RUN apk --no-cache add python3 curl bash ca-certificates openssl ncurses coreutils make gcc g++ libgcc linux-headers grep util-linux binutils findutils uuidgen wget unzip tar openssl jq bash
 
 # Install Bitwarden CLI
-RUN npm install -g @bitwarden/cli
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev \
+    && ln -s /app/node_modules/.bin/bw /usr/local/bin/bw \
+    && rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 
 # Define a default cron schedule
 ENV CRON_SCHEDULE="0 0 * * *"
