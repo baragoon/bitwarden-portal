@@ -8,6 +8,18 @@
     "enabled": true,
     "schedule": ["before 4am on monday"]
   },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^README\\.md$/"],
+      "matchStrings": [
+        "ghcr\\.io/baragoon/bitwarden-portal:(?<currentValue>v\\d+\\.\\d+\\.\\d+)"
+      ],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "baragoon/bitwarden-portal",
+      "versioningTemplate": "semver"
+    }
+  ],
   "packageRules": [
     {
       "matchDatasources": ["docker"],

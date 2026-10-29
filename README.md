@@ -1,13 +1,13 @@
 # Bitwarden Portal
+
 Automate backup and restore between Bitwarden and/or Vaultwarden vault.
 
-<p align="center">
-  <img src="logo.png" alt=""/>
-</p>
+![Logo](logo.png)
 
 ![GHCR Version](https://ghcr-badge.egpl.dev/baragoon/bitwarden-portal/latest_tag)
 
 ## Table of Contents
+
 - [Description](#description)
 - [Features](#features)
 - [How It Works](#how-it-works)
@@ -28,8 +28,7 @@ The goal of this project was to create a backup process of a Bitwarden vault to 
 This docker image automates the **backup** and **restore** process for a Bitwarden vault. It provides functionalities for exporting, encrypting, and managing backup versions.
 Additionally, the script securely deletes outdated files while maintaining a minimum number of recent backups.
 
-**✅ This script works for Bitwarden as well as Vaultwarden**
-
+✅ This script works for Bitwarden as well as Vaultwarden.
 
 ## Features
 
@@ -59,6 +58,7 @@ Additionally, the script securely deletes outdated files while maintaining a min
    - Imports the decrypted backup into the destination vault.
 
 ## Manual Recovery Process
+
 To restore your vault from the encrypted backup files, follow these instructions:
 
 1. **Locate the Encrypted Backup File**  
@@ -66,23 +66,25 @@ To restore your vault from the encrypted backup files, follow these instructions
 
 2. **Decrypt the Backup**  
    Open your terminal and run the following command to decrypt the backup:
+
    ```bash
    openssl enc -aes-256-cbc -d -pbkdf2 -pass pass:"<YOUR_ENCRYPTION_PASSWORD>" -in "<BACKUP_FILE.enc>" -out "<output_file_name.json>"
 
-  - Replace `<YOUR_ENCRYPTION_PASSWORD>` with the password you used to encrypt the backup.
-  - Replace `<BACKUP_FILE.enc>` with the name of your encrypted backup file.
-  - Replace `<output_file_name.json>` with the desired name for the decrypted JSON output file.
+- Replace `<YOUR_ENCRYPTION_PASSWORD>` with the password you used to encrypt the backup.
 
-3. **Import the Decrypted File**  
+- Replace `<BACKUP_FILE.enc>` with the name of your encrypted backup file.
+- Replace `<output_file_name.json>` with the desired name for the decrypted JSON output file.
+
+1. **Import the Decrypted File**  
    After executing the command, the decrypted JSON file will be created in your current directory. You can then import this JSON file into your Bitwarden or Vaultwarden vault.  
    **Note**: If the vault already contains the same items, duplicates will be added to the vault.
 
-
 ## Environment Variables
+
 The script uses the following environment variables for backup and restore configuration:
 
 - **Script Config**
-  - `CRON_SCHEDULE`: Your backup cron schedule (Default: `0 0 * * *` = every day at 00:00)   
+  - `CRON_SCHEDULE`: Your backup cron schedule (Default: `0 0 * * *` = every day at 00:00)
     You can generate one at [crontab.guru](https://crontab.guru/).
 
 - **Authentication**
@@ -120,7 +122,6 @@ The script uses the following environment variables for backup and restore confi
   - `backups/source`: Folder for source vault backups.
   - `backups/dest`: Folder for destination vault backups.
 
-
 ## Getting Started
 
 ### Prerequisites
@@ -130,24 +131,27 @@ The script uses the following environment variables for backup and restore confi
     - To get both source and destination Client ID and Client Secret you need to go in `Account Settings` -> `Security` -> `Keys`.
 
 ### Docker Compose with .env file
+
 ```yaml
 services:
     bitwarden-portal:
-        image: ghcr.io/baragoon/bitwarden-portal:latest
+        image: ghcr.io/baragoon/bitwarden-portal:v1.0.3
         container_name: bitwarden-portal
         env_file: .env
         volumes:
             - your-backups-folder:/app/backups
         restart: unless-stopped
 ```
+
 - Change `your-backups-folder` to your backup folder.
 - Create a `.env` file and set the variables. (See `.env.example` as reference)
 
 ### Docker Compose with env variables
+
 ```yaml
 services:
     bitwarden-portal:
-        image: ghcr.io/baragoon/bitwarden-portal:latest
+        image: ghcr.io/baragoon/bitwarden-portal:v1.0.3
         container_name: bitwarden-portal
         environment:
             # Put your cron schedule. 
@@ -185,28 +189,35 @@ services:
             - your-backups-folder:/app/backups
         restart: unless-stopped
 ```
+
 - Change env variables to match your setup.
 - Change `your-backups-folder` to your backup folder.
 
 ### Build Locally
+
 1. Clone the repo and enter the directory:  
+
     ```bash
     git clone https://github.com/ghcr.io/baragoon/bitwarden-portal.git && cd bitwarden-portal
     ```
+
 2. Create a `.env` file and set the variables. (See `.env.example` as reference)
 3. Start the container:  
+
     ```bash
     docker compose up -d
     ```
 
 GitHub Actions validates multi-architecture Docker builds for pull requests and pushes to `main`. Images are published to GitHub Container Registry only for `v*` tags, preserving the `v` prefix on version tags (for example, `v1.0.3`; stable releases are also tagged `latest`).
-    
+
 ## Roadmap
+
 - Self-signed certificate with docker-compose (not only by local build).
 - Output logs.
 - Attachments backup and transfer.
 
 ## Self-Signed Certificate
+
 **[WIP**]  
 If you are using a local domain with a self-signed certificate for SSL, you need to put your certificate inside the `Certs` folder.
 
