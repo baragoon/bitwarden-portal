@@ -200,7 +200,7 @@ services:
     docker compose up -d
     ```
 
-GitHub Actions validates multi-architecture Docker builds for pull requests and pushes to `main`. Images are published to GitHub Container Registry only for `v*` tags, using version tags (and `latest` for stable releases).
+GitHub Actions validates multi-architecture Docker builds for pull requests and pushes to `main`. Images are published to GitHub Container Registry only for `v*` tags, preserving the `v` prefix on version tags (for example, `v1.0.3`; stable releases are also tagged `latest`).
     
 ## Roadmap
 - Self-signed certificate with docker-compose (not only by local build).
