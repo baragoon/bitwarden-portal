@@ -11,9 +11,12 @@ fix_permissions() {
     local pgid="$2"
     local folder="$3"
 
-    chown -R "$puid:$pgid" "$folder"
-}
+    if [ -z "$puid" ] || [ -z "$pgid" ]; then
+        return 0
+    fi
 
+    find "$folder" ! \( -user "$puid" -a -group "$pgid" \) -exec chown "$puid:$pgid" {} +
+}
 
 encrypt_file() {
     local input_file="$1"
@@ -112,7 +115,6 @@ cleanup_unencrypted() {
 # Set traps to ensure cleanup is performed on exit or error
 trap cleanup_unencrypted SIGINT SIGTERM EXIT
 
-
 #------#
 # INIT #
 #------#
@@ -154,7 +156,6 @@ fix_permissions "$PUID" "$PGID" "/app/backups"
 
 sleep 1
 
-
 #--------#
 # BACKUP #
 #--------#
@@ -169,14 +170,12 @@ SOURCE_OUTPUT_FILE_PATH="$TEMP_FOLDER/$SOURCE_NEW_FILENAME"
 # Encrypted file stored in source backup folder
 ENCRYPTED_SOURCE_OUTPUT_FILE_PATH="$SOURCE_FOLDER/$SOURCE_NEW_FILENAME.enc"
 
-
 #--------------#
 # SOURCE PURGE #
 #--------------#
 
 purge_folder "$SOURCE_FOLDER" "$MIN_FILES" "$RETENTION_DAYS"
 sleep 1
-
 
 #--------------#
 # SOURCE LOGIN #
@@ -216,7 +215,6 @@ fi
 echo "# Synchronizing the vault..."
 bw sync --session "$SOURCE_SESSION"
 printf '\n'
-
 
 #---------------#
 # SOURCE EXPORT #
@@ -264,7 +262,6 @@ echo "########## End of Backup process ##########"
 
 sleep 1
 
-
 #---------#
 # RESTORE #
 #---------#
@@ -279,7 +276,6 @@ DEST_NEW_FILENAME="$DEST_EXPORT_OUTPUT_BASE$TIMESTAMP.json"
 DEST_OUTPUT_FILE_PATH="$TEMP_FOLDER/$DEST_NEW_FILENAME"
 # Encrypted file stored in destination backup folder
 ENCRYPTED_DEST_OUTPUT_FILE_PATH="$DEST_FOLDER/$DEST_NEW_FILENAME.enc"
-
 
 #------------#
 # DEST PURGE #
@@ -321,7 +317,6 @@ fi
 echo "# Synchronizing the vault..."
 bw sync --session "$DEST_SESSION"
 printf '\n'
-
 
 #-------------#
 # DEST EXPORT #
@@ -456,7 +451,6 @@ fi
 # Remove the decrypted file
 rm -f "$DECRYPTED_SOURCE_OUTPUT_FILE_PATH"
 echo "# Decrypted backup imported and removed."
-
 
 #-------------#
 # DEST LOGOUT #
