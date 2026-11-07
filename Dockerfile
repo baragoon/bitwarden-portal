@@ -1,5 +1,5 @@
 # Use a Node.js base image
-FROM node:26.13.0-alpine3.24
+FROM node:26.13.0-alpine3.24@sha256:8996bb5821d62a8fd9bb27c1cb07462f3fdce6e47d640c6a881ead0b064ce216
 
 ENV TZ="Europe/Berlin"
 RUN apk --no-cache add tzdata
