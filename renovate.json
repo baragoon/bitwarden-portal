@@ -3,7 +3,8 @@
   "assignees": ["baragoon"],
   "extends": [
     "config:recommended",
-    "helpers:pinGitHubActionDigests"
+    "helpers:pinGitHubActionDigests",
+    "pinDependencies"
   ],
   "osvVulnerabilityAlerts": true,
   "lockFileMaintenance": {
