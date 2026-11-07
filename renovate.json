@@ -31,8 +31,9 @@
     },
     {
       "matchManagers": ["custom.regex"],
-      "matchFileNames": ["README.md"],
+      "matchPackageNames": ["baragoon/bitwarden-portal"],
       "automerge": true,
+      "automergeType": "branch",
       "ignoreTests": true
     }
   ]
