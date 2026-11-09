@@ -2,8 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "assignees": ["baragoon"],
   "extends": [
-    "config:recommended",
-    "helpers:pinGitHubActionDigests"
+    "config:best-practices"
   ],
   "osvVulnerabilityAlerts": true,
   "lockFileMaintenance": {
@@ -33,6 +32,7 @@
       "matchManagers": ["custom.regex"],
       "matchPackageNames": ["baragoon/bitwarden-portal"],
       "automerge": true,
+      "pinDigests": false,
       "automergeType": "branch",
       "ignoreTests": true
     }
