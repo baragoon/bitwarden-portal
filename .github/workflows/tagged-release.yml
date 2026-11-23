@@ -53,9 +53,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=semver,pattern={{version}},prefix=v
-            type=semver,pattern={{major}}.{{minor}},prefix=v
-            type=semver,pattern={{major}},prefix=v
+            type=semver,pattern={{version}},prefix=v,value=${{ inputs.tag }}
+            type=semver,pattern={{major}}.{{minor}},prefix=v,value=${{ inputs.tag }}
+            type=semver,pattern={{major}},prefix=v,value=${{ inputs.tag }}
           flavor: |
             latest=auto
 
