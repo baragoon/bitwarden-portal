@@ -210,6 +210,12 @@ services:
 
 GitHub Actions validates multi-architecture Docker builds for pull requests and pushes to `main`. Images are published to GitHub Container Registry only for `v*` tags, preserving the `v` prefix on version tags (for example, `v1.0.3`; stable releases are also tagged `latest`).
 
+To republish an existing release tag, run the manual workflow from `main`:
+
+```bash
+gh workflow run tagged-release.yml --repo baragoon/bitwarden-portal --ref main -f tag=v1.1.0
+```
+
 ## Roadmap
 
 - Self-signed certificate with docker-compose (not only by local build).
