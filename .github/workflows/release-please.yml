@@ -25,8 +25,8 @@ jobs:
 
   publish-release:
     needs: release-please
-    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    if: ${{ needs['release-please'].outputs.release_created == 'true' }}
     uses: ./.github/workflows/tagged-release.yml
     with:
-      tag: ${{ needs.release-please.outputs.tag_name }}
+      tag: ${{ needs['release-please'].outputs.tag_name }}
     secrets: inherit
