@@ -210,7 +210,7 @@ services:
 
 GitHub Actions validates multi-architecture Docker builds for pull requests and pushes to `main`. Images are published to GitHub Container Registry only for `v*` tags, preserving the `v` prefix on version tags (for example, `v1.0.3`; stable releases are also tagged `latest`).
 
-Release Please uses a GitHub App token so its pull requests can trigger workflows, subject to repository approval policies. Configure the repository variable `APP_CLIENT_ID` and secret `APP_PRIVATE_KEY` for an installed GitHub App with contents and pull requests write access. Release tags trigger the tagged-image workflow.
+Release Please uses a GitHub App token so its pull requests can trigger workflows, subject to repository approval policies. Configure the repository variable `APP_CLIENT_ID` and secret `APP_PRIVATE_KEY` for an installed GitHub App with contents and pull requests write access. When a release PR is merged, Release Please creates the release tag and invokes the tagged-image workflow directly. Manually pushed tags do not trigger publishing; use the manual workflow instead.
 
 To republish an existing release tag, run the manual workflow from `main`:
 
