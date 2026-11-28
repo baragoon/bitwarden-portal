@@ -20,6 +20,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -77,3 +78,25 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Trigger Renovate rescan
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          num=$(gh issue list --state open --search "Dependency Dashboard in:title" \
+                --json number --jq '.[0].number')
+          [ -z "$num" ] && { echo "No dashboard issue found"; exit 0; }
+          gh issue view "$num" --json body --jq .body > body.md
+          if grep -q -- '- \[x\] <!-- manual job -->' body.md; then
+            echo "Checkbox already ticked, a run is already requested"
+            exit 0
+          fi
+          if ! grep -q -- '- \[ \] <!-- manual job -->' body.md; then
+            echo "Manual job checkbox not found in issue #$num"
+            exit 1
+          fi
+          sed -i 's/- \[ \] <!-- manual job -->/- [x] <!-- manual job -->/' body.md
+          gh issue edit "$num" --body-file body.md
+          echo "Ticked manual job checkbox on issue #$num"
