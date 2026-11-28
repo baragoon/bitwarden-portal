@@ -2,7 +2,7 @@
   "name": "bitwarden-portal-container",
   "private": true,
   "dependencies": {
-    "@bitwarden/cli": "2026.11.0"
+    "@bitwarden/cli": "2026.11.1"
   },
   "overrides": {
     "multer": "2.5.0",
