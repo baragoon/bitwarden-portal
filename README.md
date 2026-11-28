@@ -210,6 +210,8 @@ services:
 
 GitHub Actions validates multi-architecture Docker builds for pull requests and pushes to `main`. Images are published to GitHub Container Registry only for `v*` tags, preserving the `v` prefix on version tags (for example, `v1.0.3`; stable releases are also tagged `latest`).
 
+Release Please uses `GITHUB_TOKEN`; workflow runs for its pull requests may require approval from a user with write access. Releases invoke the tagged-image workflow directly.
+
 To republish an existing release tag, run the manual workflow from `main`:
 
 ```bash
